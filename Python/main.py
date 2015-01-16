@@ -3,6 +3,8 @@ from time import sleep
 
 if __name__ == "__main__":
 	xbee = XBee.XBee("/dev/tty.usbserial-DA011EDD")
+	
+	sensorValues = [] 
 
 while True:
 	# A simple string message
@@ -12,6 +14,12 @@ while True:
 	if Msg:
 		content = Msg[7:-1].decode('ascii')
 		print("Msg: " + content)
+		sensorValue = content.find("true")
+		if sensorValue == 1: 
+			sensorValues.insert(0, sensorValue)
+		else:
+			sensorValues.insert(0, 0);
+		print(sensorValues); 
 
 	sent = xbee.SendStr("SensorTrue", 0x5678)
 	sleep(0.25)
@@ -19,8 +27,15 @@ while True:
 	if Msg:
 		content = Msg[7:-1].decode('ascii')
 		print("Msg: " + content)
-		
-		
+		sensorValue = content.find("true")
+		if sensorValue == 1: 
+			sensorValues.insert(0, sensorValue)
+		else:
+			sensorValues.insert(0, 0);
+		print(sensorValues);
+	
+	
+	
 		
 
 #    # A message that requires escaping
