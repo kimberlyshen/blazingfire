@@ -6,6 +6,30 @@ if __name__ == "__main__":
 	
 	sensorValues = [] 
 
+class State:
+	boolean occupied
+	boolean motion # sensorValues[0]
+	boolean noise  # sensorValues[1]
+	int numDevices # sensorValues[2]
+	int peopleCount
+
+	def __init__(self):
+		self.occupied = False
+		self.motion = False
+		self.noise = False
+		self.num_devices = 0
+		self.peopleCount = 0
+	
+	def printState(self):
+		print "Occupied:          %s" % State.occupied
+		print "Motion:            %s" % State.motion
+		print "Noise:             %s" % State.noise
+		print "Connected Devices: %d" % State.numDevices
+		print "People Count:      %d" % State.peopleCount
+
+// Instantiate the State object
+state = State()
+
 while True:
 	# A simple string message
 	sent = xbee.SendStr("SensorTrue", 0x1994)
