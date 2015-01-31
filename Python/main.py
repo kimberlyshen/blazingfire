@@ -1,6 +1,7 @@
 import XBee
 from time import sleep
 import time
+import subprocess
 
 if __name__ == "__main__":
 	xbee = XBee.XBee("/dev/tty.usbserial-DA011EDD")
@@ -77,8 +78,10 @@ while True:
 		state.noise = sensorValues[1]
 	
 	# need to get networked devices here
-	# int newDeviceNum = CALL PERL SCRIPT
-	# state.deviceChange = newDeviceNum - oldNumDevices
+	pipe = subprocess.Popen(["perl","./device.pl"], stdout=subprocess.PIPE)
+	int newDeviceNum = pipe.stdout.read()
+	pipe.stdout.close()
+	state.deviceChange = newDeviceNum - oldNumDevices
 
 	# if 30 seconds have passed, run occupancy algorithm
 	if(time.time()-start_time > 30):
