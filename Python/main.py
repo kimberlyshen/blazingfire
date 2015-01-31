@@ -15,20 +15,19 @@ class Sensors:
 
 class State:
 	# Threshold for noise sensor
-	int NOISE_THRESHOLD = 0
-	boolean occupied
-	boolean motion		# sensorValues[0]
-	int noise		# sensorValues[1]
-	int numDevices 
-	int peopleCount		# sensorValues[2]
-	int deviceChange
+	#boolean occupied
+	#boolean motion		# sensorValues[0]
+	#int noise		# sensorValues[1]
+	#int numDevices 
+	#int peopleCount		# sensorValues[2]
+	#int deviceChange
 
 
-	def __init__(self):
+	def __init__(self, occupied, motion, noise, numDevices, peopleCount, deviceChange):
 		self.occupied = False
 		self.motion = False
 		self.noise = 0
-		self.num_devices = 0
+		self.numDevices = 0
 		self.peopleCount = 0
 		self.deviceChange = 0
 	
@@ -40,12 +39,13 @@ class State:
 		print "People Count:      %d" % self.peopleCount
 		print "DeviceChange:	  %d" % self.deviceChange
 	
-// Instantiate the State object
+# Instantiate the State object
 state = State()
 start_time = time.time()
+NOISE_THRESHOLD = 0
 
 while True:
-	int oldNumDevices = state.numDevices
+	oldNumDevices = state.numDevices
 
 	# A simple string message
 	sent = xbee.SendStr("SensorTrue", 0x1994)
@@ -78,14 +78,17 @@ while True:
 		state.noise = sensorValues[1]
 	
 	# need to get networked devices here
-	pipe = subprocess.Popen(["perl","./device.pl"], stdout=subprocess.PIPE)
-	int newDeviceNum = pipe.stdout.read()
+	pipe = subprocess.Popen(["perl","perl.pl"], stdout=subprocess.PIPE)
+	newDeviceNum = pipe.stdout.read()
 	pipe.stdout.close()
+	pipe.kill()
+	print(newDeviceNum)
 	state.deviceChange = newDeviceNum - oldNumDevices
+	print(state.deviceChange)
 
 	# if 30 seconds have passed, run occupancy algorithm
 	if(time.time()-start_time > 30):
-		int counter = 0
+		counter = 0
 
 		# check which sensors are active in order of priority
 		counter += 1 if state.motion else 0
