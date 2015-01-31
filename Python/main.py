@@ -11,33 +11,41 @@ sensorValues = []
 class Sensors:
 	Motion, Noise, NumDevices, PeopleCount = range(4)
 
+
 class State:
+	# Threshold for noise sensor
+	int NOISE_THRESHOLD = 0
 	boolean occupied
-	boolean motion # sensorValues[0]
-	boolean noise  # sensorValues[1]
+	boolean motion		# sensorValues[0]
+	int noise		# sensorValues[1]
 	int numDevices 
-	int peopleCount # sensorValues[2]
+	int peopleCount		# sensorValues[2]
+	int deviceChange
 
 
 	def __init__(self):
 		self.occupied = False
 		self.motion = False
-		self.noise = False
+		self.noise = 0
 		self.num_devices = 0
 		self.peopleCount = 0
+		self.deviceChange = 0
 	
 	def printState(self):
-		print "Occupied:          %s" % State.occupied
-		print "Motion:            %s" % State.motion
-		print "Noise:             %s" % State.noise
-		print "Connected Devices: %d" % State.numDevices
-		print "People Count:      %d" % State.peopleCount
-
+		print "Occupied:          %s" % self.occupied
+		print "Motion:            %s" % self.motion
+		print "Noise:             %d" % self.noise
+		print "Connected Devices: %d" % self.numDevices
+		print "People Count:      %d" % self.peopleCount
+		print "DeviceChange:	  %d" % self.deviceChange
+	
 // Instantiate the State object
 state = State()
 start_time = time.time()
 
 while True:
+	int oldNumDevices = state.numDevices
+
 	# A simple string message
 	sent = xbee.SendStr("SensorTrue", 0x1994)
 	sleep(0.25)
@@ -70,20 +78,22 @@ while True:
 
 	# if 30 seconds have passed, run occupancy algorithm
 	if(time.time()-start_time > 30):
-		int sensor = -1
-		
+		int counter = 0
+
 		# check which sensors are active in order of priority
-		if(state.motion):
-			sensor = Sensors.Motion
-		elseif(state.noise):
-			sensor = Sensors.Noise
-		elseif(state.peopleCount > 0):
-			sensor = Sensors.PeopleCount
-		elseif(state.numDevices > 0):
-			sensor = Sensors.NumDevices
+		counter += state.motion ? 1:0
+		counter += state.noise > NOISE_THRESHOLD ? 1:0
+		counter += state.peopleCount > 0 ? 1:0
+		counter += state.deviceChange > 0 ? 1:0
+		
+		if (counter >= 3):
+			state.occupied = true
+			print("Home is occupied. Counter value = %d") % counter
+		else:
+			state.occupied = false
+			print("Home is not occupied. Counter value = %d") % counter
 
-		# call function
-
+		# should send results to relay module and the web app
 		# add logging for state result and time
 
 		# reset start time to current time
