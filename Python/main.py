@@ -59,7 +59,7 @@ while True:
 		else:
 			sensorValues.insert(0, 0);
 		print(sensorValues); 
-		state.motion = sensorValues[0]
+		state.motion = True if sensorValues[0] == 1 else False
 
 	sent = xbee.SendStr("SensorTrue", 0x5678)
 	sleep(0.25)
@@ -81,16 +81,16 @@ while True:
 		int counter = 0
 
 		# check which sensors are active in order of priority
-		counter += state.motion ? 1:0
-		counter += state.noise > NOISE_THRESHOLD ? 1:0
-		counter += state.peopleCount > 0 ? 1:0
-		counter += state.deviceChange > 0 ? 1:0
+		counter += 1 if state.motion else 0
+		counter += 1 if state.noise > NOISE_THRESHOLD else 0
+		counter += 1 if state.peopleCount > 0 else 0
+		counter += 1 if state.deviceChange > 0 else 0
 		
 		if (counter >= 3):
-			state.occupied = true
+			state.occupied = True
 			print("Home is occupied. Counter value = %d") % counter
 		else:
-			state.occupied = false
+			state.occupied = False
 			print("Home is not occupied. Counter value = %d") % counter
 
 		# should send results to relay module and the web app
