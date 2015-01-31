@@ -75,6 +75,10 @@ while True:
 		print(sensorValues)
 		
 		state.noise = sensorValues[1]
+	
+	# need to get networked devices here
+	# int newDeviceNum = CALL PERL SCRIPT
+	# state.deviceChange = newDeviceNum - oldNumDevices
 
 	# if 30 seconds have passed, run occupancy algorithm
 	if(time.time()-start_time > 30):
