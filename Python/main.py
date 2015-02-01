@@ -32,12 +32,12 @@ class State:
 		self.deviceChange = 0
 	
 	def printState(self):
-		print "Occupied:          %s" % self.occupied
-		print "Motion:            %s" % self.motion
-		print "Noise:             %d" % self.noise
-		print "Connected Devices: %d" % self.numDevices
-		print "People Count:      %d" % self.peopleCount
-		print "DeviceChange:	  %d" % self.deviceChange
+		print ("Occupied:          " + self.occupied)
+		print ("Motion:            " + self.motion)
+		print ("Noise:             " + self.noise)
+		print ("Connected Devices: " + self.numDevices)
+		print ("People Count:      " + self.peopleCount)
+		print ("DeviceChange:	  " + self.deviceChange)
 	
 # Instantiate the State object
 state = State()
