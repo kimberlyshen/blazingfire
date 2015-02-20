@@ -26,7 +26,7 @@ class State:
 	def __init__(self, occupied, motion, noise, numDevices, peopleCount, deviceChange):
 		self.occupied = False
 		self.motion = False
-		self.noise = 0
+		self.noise = 1
 		self.numDevices = 0
 		self.peopleCount = 0
 		self.deviceChange = 0
@@ -42,7 +42,7 @@ class State:
 # Instantiate the State object
 state = State()
 start_time = time.time()
-NOISE_THRESHOLD = 0
+NOISE_THRESHOLD = 1
 
 while True:
 	oldNumDevices = state.numDevices
