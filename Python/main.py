@@ -68,12 +68,21 @@ while True:
 	if Msg:
 		content = Msg[7:-1].decode('ascii')
 		print("Msg: " + content)
-		sensorValue = content.find("true")
+		sensorValue = content.find("sensor1true")
+		sensorValue2 = content.find("sensor2true")
+		
 		if sensorValue == 1: 
 			sensorValues.insert(1, sensorValue)
 		else:
 			sensorValues.insert(1, 0)
 		print(sensorValues)
+		
+		if sensorValue2 == 1: 
+			sensorValues.insert(1, sensorValue2)
+		else:
+			sensorValues.insert(1, 0)
+		print(sensorValues)
+				
 		
 		state.noise = sensorValues[1]
 	
