@@ -34,7 +34,7 @@ void setup(){
 void loop(){
   int pirVal = digitalRead(pirPin);
 
-  if(pirVal == HIGH){ //was motion detected
+  if(pirVal == LOW){ //was motion detected
     Serial.println("Motion detected at home"); 
     delay(500); 
   }
