@@ -57,7 +57,7 @@ state = State()
 start_time = time.time()
 NOISE_THRESHOLD = 1
 
-f = open('datalog', 'w')
+#f = open('datalog', 'w')
 _thread.start_new_thread( networkedDevices, ("Thread-1", ) )
 
 while True:
@@ -144,7 +144,7 @@ while True:
 	#	print(state.deviceChange)
 
 		# check which sensors are active in order of priority
-		counter += 1 if state.motion > 0 else 0
+		counter += 1 if state.motion==True else 0
 		counter += 1 if state.noise > NOISE_THRESHOLD else 0
 #		counter += 1 if state.peopleCount > 0 else 0
 		counter += 1 if state.deviceChange > 0 else 0
@@ -161,11 +161,15 @@ while True:
 			sensorString = str(sensorValues)
 			resString = 'Data value' + sensorString + '=' + 'Home is not occupied'
 			f.write(resString)
-			
-		time.sleep(6)
-#
+
 #		# should send results to relay module and the web app
 #		# add logging for state result and time
+        with open("home.arff", "a") as myfile:
+            myfile.write(state.occupied + "," + state.motion + "," + state.noise + "," + state.numDevices + "," + state.peopleCount + "," + state.deviceChange + "," time.localtime())
+            print(time.localtime())
+            myfile.close()
+                    
+		time.sleep(6)
 #
 		# reset start time to current time
 		start_time = time.time()
