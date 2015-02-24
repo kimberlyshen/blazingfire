@@ -39,7 +39,7 @@ class State:
 	def __init__(self, occupied=False, motion=False, noise="Quiet", numDevices=0, peopleCount=0, deviceChange=0):
 		self.occupied = False
 		self.motion = False
-		self.noise = 0
+		self.noise = 1
 		self.numDevices = 0
 		self.peopleCount = 0
 		self.deviceChange = 0
