@@ -1,0 +1,11 @@
+@relation home
+
+@attribute occupied		{True, False}
+@attribute motion		{True, False}
+@attribute noise		NUMERIC
+@attribute numDevices 	NUMERIC
+@attribute peopleCount 	NUMERIC
+@attribute deviceChange	NUMERIC
+@attribute timestamp 	DATE "yyyy-MM-dd HH:mm:ss"
+
+@data
