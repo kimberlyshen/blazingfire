@@ -14,6 +14,8 @@ my $devices = "grep \"..:..:..:..:..:..\" out.txt \| tee devices.txt >/dev/null"
 system($name);
 system($devices);
 
+print "Output done \n ";
+
 open FILE, "devices.txt" or die $!;
 
 my @words;
@@ -24,10 +26,12 @@ my @mac;
 
 while (<FILE>)
 {
-    chomp;
-    #print "$_\n";
     
-    #   my $devices = $_;
+    chomp;
+    print "$_\n";
+    
+    
+    # my $devices = $_;
     #   system("ping $_");
     
     @words = split(' ');
@@ -36,17 +40,18 @@ while (<FILE>)
     
        foreach my $word (@words) {
            if( $id < 2 ){
-               #print "#printin word\n";
-               #print "$word\n";
+               print "printin word\n";
+               print "$word\n";
                
-               if( $word =~ /[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9]\./ ){
-                   #print "It's an IP address\n";
+               
+               if( $word =~ /[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9]\./ ){
+                   print "It's an IP address\n";
                    $ip[$ip_count] = $word;
                    $ip_count++;
                }
                
                if ( $word =~ /..:..:..:..:..:../ ){
-                   ##print "It's a Mac Address\n";
+                   print "It's a Mac Address\n";
                    $mac[$mac_count] = $word;
                    $mac_count++;
                }
@@ -66,10 +71,12 @@ my $p;
 my $count = 0;
 my $numDevices = 0; 
 
+
+
 for($count = 0; $count < $ip_count; $count++){
     
-    if( $ip[$count] =~ /[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9]\./ ){
-        #print "$ip[$count]\n";
+    if( $ip[$count] =~ /[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9]\./ ){
+         print "$ip[$count]\n";
         
                $host = $ip[$count];
           my $timeout = 10;
@@ -77,7 +84,7 @@ for($count = 0; $count < $ip_count; $count++){
         $p = Net::Ping->new("icmp");
         
         if( $p->ping($host, $timeout) ){
-            #print "Host ".$host." is alive\n";
+            print "Host ".$host." is alive\n";
 			$numDevices++; 
         }
         else {
