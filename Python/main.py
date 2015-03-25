@@ -11,6 +11,7 @@ sensorValues = [0,0,0,0]
 
 def networkedDevices(threadname):
 	while True:
+		oldNumDevices = state.numDevices
 		pipe = subprocess.Popen(["perl","perl.pl"], stdout=subprocess.PIPE)
 		newDeviceNum = pipe.stdout.read()
 		pipe.stdout.close()
@@ -18,6 +19,8 @@ def networkedDevices(threadname):
 		res = int(newDeviceNum)
 		print(res)
 		state.deviceChange = res - oldNumDevices
+		state.numDevices = res
+		oldNumDevices = res
 		print(state.deviceChange)
 		print("I am running bitch! I am the thread!!!! ")
 
@@ -61,9 +64,7 @@ NOISE_THRESHOLD = 1
 _thread.start_new_thread( networkedDevices, ("Thread-1", ) )
 
 while True:
-	oldNumDevices = state.numDevices
-	
-	
+	oldNumDevices = 0
 	# A simple string message
 	sent = xbee.SendStr("SensorTrue", 0x5678)
 	sleep(0.25)
@@ -154,20 +155,21 @@ while True:
 			print("Home is occupied. Counter value = " + str(counter))
 			sensorString = str(sensorValues)
 			resString = 'Data value' + sensorString + '=' + 'Home is occupied'
-			f.write(resString)
+			#f.write(resString)
 		else:
 			state.occupied = False
 			print("Home is not occupied. Counter value = " + str(counter))
 			sensorString = str(sensorValues)
 			resString = 'Data value' + sensorString + '=' + 'Home is not occupied'
-			f.write(resString)
+			#f.write(resString)
 
 #		# should send results to relay module and the web app
 #		# add logging for state result and time
-        with open("home.arff", "a") as myfile:
-            myfile.write(state.occupied + "," + state.motion + "," + state.noise + "," + state.numDevices + "," + state.peopleCount + "," + state.deviceChange + "," time.localtime())
-            print(time.localtime())
-            myfile.close()
+		myfile = open("home.arff", "a")
+		timestr = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+		filestr = str(state.occupied) + "," + str(state.motion) + "," + str(state.noise) + "," + str(state.numDevices) + "," + str(state.peopleCount) + "," + str(state.deviceChange) + "," + timestr + "\n"
+		myfile.write(filestr)
+		myfile.close()
                     
 		time.sleep(6)
 #
