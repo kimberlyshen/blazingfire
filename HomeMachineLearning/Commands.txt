@@ -8,7 +8,7 @@ java -classpath weka.jar:jython-standalone-2.7-b4.jar \
 For information:
 
    
---> Predictions for home occupancy:
+--> Predictions for home occupancy: 
 
 Number 	CodeInput 	Prediction
 
