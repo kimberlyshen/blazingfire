@@ -167,7 +167,7 @@ while True:
 #		# add logging for state result and time
 		myfile = open("home.arff", "a")
 		timestr = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-		filestr = str(state.occupied) + "," + str(state.motion) + "," + str(state.noise) + "," + str(state.numDevices) + "," + str(state.peopleCount) + "," + str(state.deviceChange) + "," + timestr + "\n"
+		filestr = str(state.occupied) + "," + str(state.motion) + "," + str(state.noise) + "," + str(state.numDevices) + "," + str(state.peopleCount) + "," + str(state.deviceChange) + "\n"
 		myfile.write(filestr)
 		myfile.close()
                     
