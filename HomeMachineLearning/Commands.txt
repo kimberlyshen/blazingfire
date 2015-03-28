@@ -1,0 +1,16 @@
+Command to launch machine learning algorithm:
+
+java -classpath weka.jar:jython-standalone-2.7-b4.jar \
+   org.python.util.jython \
+   homeMachineLearning.py home.arff
+   
+   
+For information:
+
+   
+--> Predictions for home occupancy: 
+
+Number 	CodeInput 	Prediction
+
+     1     1:True     1:True       1 
+     2     1:True     1:True       1 
