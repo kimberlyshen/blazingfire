@@ -5,6 +5,7 @@ import java.lang.StringBuffer as StringBuffer
 import java.lang.Boolean as Boolean
 import java.io.FileOutputStream as FileOutputStream
 import java.io.PrintStream as PrintStream
+import java.util.StringTokenizer as StringTokenizer
 
 import weka.core.Instances as Instances
 import weka.classifiers.trees.J48 as J48
@@ -32,7 +33,7 @@ if (not (len(sys.argv) == 2)):
     sys.exit()
 
 # load data file
-print "Loading home.arff..."
+#print "Loading home.arff..."
 file = FileReader(sys.argv[1])
 data = Instances(file)
 
@@ -46,7 +47,7 @@ evaluation = Evaluation(data)
 buffer = StringBuffer()  # buffer for the predictions
 attRange = Range()  # no additional attributes output
 outputDistribution = Boolean(False)  # we don't want distribution
-print "Training J48 with the home occupancy data...\n"
+#print "Training J48 with the home occupancy data...\n"
 j48 = J48()
 j48.buildClassifier(data)  # only a trained classifier can be evaluated
 
@@ -57,7 +58,7 @@ smallerData = Instances(data, 0, 1)
 lastInst = data.lastInstance()
 #Adding the second instance to the instances
 smallerData.add(lastInst)
-print smallerData
+#print smallerData
 
 #Making the prediction on the instaces
 evaluation.evaluateModel(j48, smallerData, [buffer, attRange, outputDistribution])
@@ -67,15 +68,18 @@ evaluation.evaluateModel(j48, smallerData, [buffer, attRange, outputDistribution
 
 
 # print out the built model
-print "Generated model for home occupancy:\n"
-print j48
+#print "Generated model for home occupancy:\n"
+#print j48
 
-print "--> Evaluation for home occupancy:\n"
-print evaluation.toSummaryString()
+#print "--> Evaluation for home occupancy:\n"
+#print evaluation.toSummaryString()
 
-print "--> Predictions for home occupancy:\n"
-print buffer
+#print "--> Predictions for home occupancy:\n"
+#print buffer
+print buffer.subSequence(62,66)
+#StringTokenizer st = new StringTokenizer(buffer.toS)
 
-fout = FileOutputStream("machineLearningPrediction.txt")
-pout = PrintStream(fout)
-pout.print(buffer.toString())
+
+#fout = FileOutputStream("machineLearningPrediction.txt")
+#pout = PrintStream(fout)
+#pout.print(buffer.toString())
