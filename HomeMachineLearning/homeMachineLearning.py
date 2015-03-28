@@ -76,10 +76,21 @@ evaluation.evaluateModel(j48, smallerData, [buffer, attRange, outputDistribution
 
 #print "--> Predictions for home occupancy:\n"
 #print buffer
-print buffer.subSequence(62,66)
-#StringTokenizer st = new StringTokenizer(buffer.toS)
+#print buffer.subSequence(62,66)
+st = StringTokenizer(buffer.toString())
+n=0
+while n<6:
+	st.nextToken()
+	n=n+1
 
+str = st.nextToken()
+occupied = str.find("True")
+#print str
+if occupied != -1:
+	print("1")
+else:
+	print("0")
 
-#fout = FileOutputStream("machineLearningPrediction.txt")
-#pout = PrintStream(fout)
-#pout.print(buffer.toString())
+fout = FileOutputStream("machineLearningPrediction.txt")
+pout = PrintStream(fout)
+pout.print(buffer.toString())
