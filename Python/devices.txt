@@ -1,8 +1,9 @@
-192.168.0.1        60:2a:d0:86:bd:c2  UHLWIir        28     5455     en1   1177
-192.168.0.21       6c:ad:f8:cf:e9:95  UHLWIi          2     6626     en1    367
-192.168.0.28       20:c9:d0:be:42:ed  UHLWI           0      494     lo0
-192.168.0.38       4c:60:de:e3:c1:2   UHLWI           0       16     en1   1025
-192.168.0.40       4c:60:de:e3:c1:2   UHLWI           0        5     en1   1139
-192.168.0.255      ff:ff:ff:ff:ff:ff  UHLWbI          0       26     en1
+192.168.0.1        60:2a:d0:86:bd:c2  UHLWIir        34     1648     en1   1162
+192.168.0.21       6c:ad:f8:cf:e9:95  UHLWIi          2     4169     en1    552
+192.168.0.40       20:c9:d0:be:42:ed  UHLWI           0      481     lo0
+192.168.0.41       d8:cf:9c:15:99:37  UHLWI           0        1     en1   1189
+192.168.0.43       0:26:c7:a8:55:fc   UHLWIi          1      449     en1   1189
+192.168.0.62       54:ea:a8:e0:25:6f  UHLWI           0       37     en1   1189
+192.168.0.255      ff:ff:ff:ff:ff:ff  UHLWbI          0       18     en1
 fe80::22c9:d0ff:febe:42ed%en1           20:c9:d0:be:42:ed               UHLI            lo0
-fe80::58c2:6fff:fef1:fdbb%awdl0         5a:c2:6f:f1:fd:bb               UHLI            lo0
+fe80::6c85:34ff:fedc:4e90%awdl0         6e:85:34:dc:4e:90               UHLI            lo0

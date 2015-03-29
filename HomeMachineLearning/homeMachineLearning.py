@@ -87,9 +87,9 @@ str = st.nextToken()
 occupied = str.find("True")
 #print str
 if occupied != -1:
-	print("1")
+	print("True")
 else:
-	print("0")
+	print("False")
 
 fout = FileOutputStream("machineLearningPrediction.txt")
 pout = PrintStream(fout)

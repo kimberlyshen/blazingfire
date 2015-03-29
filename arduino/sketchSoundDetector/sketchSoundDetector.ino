@@ -74,17 +74,17 @@ void loop()
 
   // Convert envelope value into a message
   Serial.print("Status: ");
-  if(value <= 10)
+  if(value <= 3)
   {
     Serial.println("Quiet.");
     result = "Quiet";
   }
-  else if( (value > 10) && ( value <= 30) )
+  else if( (value > 3) && ( value <= 10) )
   {
     Serial.println("Moderate.");
     result = "Moderate";
   }
-  else if(value > 30)
+  else if(value > 10)
   {
     Serial.println("Loud.");
     result = "Loud";
